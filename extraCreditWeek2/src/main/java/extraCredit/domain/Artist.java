@@ -25,8 +25,9 @@ import javax.persistence.TemporalType;
 @DiscriminatorColumn(name="Artist_Type",discriminatorType=DiscriminatorType.STRING)
 @NamedQueries({
 	@NamedQuery(name="searchArtistByName",query="select a from Artist a where a.name=:name"),
-	@NamedQuery(name="searchArtistByCharName",query="select a from Artist a where a.characterName=:chName")
-	
+	@NamedQuery(name="searchArtistByCharName",query="select a from Artist a where a.characterName=:chName"),
+	@NamedQuery(name="searchActors", query="select a from Artist a where a.Artist_Type='Actor' "),
+	@NamedQuery(name="searchDirectors", query="select a from Artist a where a.Artist_Type='Director' ")
 })
 public abstract class Artist {
 
@@ -57,6 +58,30 @@ public abstract class Artist {
 	
 	@ManyToMany(mappedBy="artists")
 	private List<Movie> movies = new ArrayList<Movie>();
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
 
 
 	
